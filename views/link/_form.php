@@ -21,7 +21,7 @@ use artsoft\widgets\LanguagePills;
     ?>
 
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -48,7 +48,7 @@ use artsoft\widgets\LanguagePills;
             </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-4">
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -81,7 +81,7 @@ use artsoft\widgets\LanguagePills;
                                 <?= Html::submitButton(Yii::t('art', 'Save'), ['class' => 'btn btn-primary']) ?>
                                 <?= Html::a(Yii::t('art', 'Delete'),
                                     ['/menu/link/delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-default',
+                                        'class' => 'btn btn-danger',
                                         'data' => [
                                             'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                                             'method' => 'post',
