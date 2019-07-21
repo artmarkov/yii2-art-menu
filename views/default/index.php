@@ -20,7 +20,7 @@ MenuAsset::register($this);
 
     <div class="row">
         <div class="col-sm-12">
-            <h3 class="lte-hide-title page-title"><?= Html::encode($this->title) ?></h3>
+            <h3 class="page-title"><?= Html::encode($this->title) ?></h3>
             <?= Html::a(Yii::t('art/menu', 'Add New Menu'), ['/menu/default/create'], ['class' => 'btn btn-sm btn-success']) ?>
             <?= Html::a(Yii::t('art/menu', 'Add New Link'), ['/menu/link/create'], ['class' => 'btn btn-sm btn-success']) ?>
 
