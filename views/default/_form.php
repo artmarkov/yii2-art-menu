@@ -40,7 +40,7 @@ use artsoft\widgets\LanguagePills;
             <div class="form-group">
                 <?= Html::a(Yii::t('art', 'Go to list'), ['/menu/default/index'], ['class' => 'btn btn-default']) ?>
                 <?= Html::submitButton(Yii::t('art', 'Save'), ['class' => 'btn btn-primary']) ?>
-                <?php if ($model->isNewRecord): ?>
+                <?php if (!$model->isNewRecord): ?>
                     <?= Html::a(Yii::t('art', 'Delete'), ['/menu/default/delete', 'id' => $model->id], [
                         'class' => 'btn btn-danger',
                         'data' => [
