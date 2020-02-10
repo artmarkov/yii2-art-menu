@@ -5,100 +5,85 @@ use artsoft\helpers\FA;
 use artsoft\models\Menu;
 use artsoft\widgets\ActiveForm;
 use artsoft\widgets\LanguagePills;
+use yii\helpers\StringHelper;
 
 /* @var $this yii\web\View */
 /* @var $model artsoft\menu\models\MenuLink */
 /* @var $form artsoft\widgets\ActiveForm */
+
+$formName = StringHelper::basename(\artsoft\menu\models\search\SearchMenuLink::className());
 ?>
 
-<div class="menu-link-form">
+    <div class="menu-link-form">
 
-    <?php
-    $form = ActiveForm::begin([
-        'id' => 'menu-link-form',
-        'validateOnBlur' => false,
-    ])
-    ?>
+        <?php
+        $form = ActiveForm::begin([
+            'id' => 'menu-link-form',
+            'validateOnBlur' => false,
+        ])
+        ?>
 
-    <div class="row">
-        <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-8">
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-
-                    <?php if ($model->isMultilingual()): ?>
-                        <?= LanguagePills::widget() ?>
-                    <?php endif; ?>
-
-                    <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
-
-                    <?php if ($model->isNewRecord): ?>
-                        <?= $form->field($model, 'id')->textInput() ?>
-                    <?php endif; ?>
-
-                    <?php //$form->field($model, 'parent_id')->dropDownList($model->getSiblings(), ['class' => 'clearfix']) ?>
-
-                    
-
-                    <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
-
-                    <?php // $form->field($model, 'order')->textInput() ?>
-
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="record-info">
-                        <?php if (!$model->isNewRecord): ?>
-                            <div class="form-group clearfix">
-                                <label class="control-label" style="float: left; padding-right: 5px;">
-                                    <?= $model->attributeLabels()['id'] ?> :
-                                </label>
-                                <span><?= $model->id ?></span>
-                            </div>
+                        <?php if ($model->isMultilingual()): ?>
+                            <?= LanguagePills::widget() ?>
                         <?php endif; ?>
-                        
-                        <?= $form->field($model, 'alwaysVisible')->checkbox() ?>
+
+                        <?= $form->field($model, 'label')->textInput(['maxlength' => true]) ?>
+
+                        <?php if ($model->isNewRecord): ?>
+                            <?= $form->field($model, 'id')->textInput() ?>
+                        <?php endif; ?>
+
+                        <?php //$form->field($model, 'parent_id')->dropDownList($model->getSiblings(), ['class' => 'clearfix']) ?>
+
+                        <?= $form->field($model, 'link')->textInput(['maxlength' => true]) ?>
+
+                        <?php // $form->field($model, 'order')->textInput() ?>
+
+                    </div>
+
+                    <div class="col-md-4">
 
                         <?php if ($model->isNewRecord): ?>
                             <?= $form->field($model, 'menu_id')->dropDownList(Menu::getMenus(), ['class' => 'clearfix form-control']) ?>
                         <?php endif; ?>
-                        
+
                         <?= $form->field($model, 'image')->dropDownList(FA::getIconsList(), [
                             'class' => 'clearfix form-control fa-font-family',
                             'encode' => false,
                         ]) ?>
 
-                        <div class="form-group">
-                            <?php if ($model->isNewRecord): ?>
-                                <?= Html::submitButton(Yii::t('art', 'Create'), ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a(Yii::t('art', 'Cancel'), ['/menu/link/index'], ['class' => 'btn btn-default']) ?>
-                            <?php else: ?>
-                                <?= Html::submitButton(Yii::t('art', 'Save'), ['class' => 'btn btn-primary']) ?>
-                                <?= Html::a(Yii::t('art', 'Delete'),
-                                    ['/menu/link/delete', 'id' => $model->id], [
-                                        'class' => 'btn btn-danger',
-                                        'data' => [
-                                            'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
-                                            'method' => 'post',
-                                        ],
-                                    ]) ?>
-                            <?php endif; ?>
-                        </div>
+                        <?= $form->field($model, 'alwaysVisible')->checkbox() ?>
+
                     </div>
                 </div>
             </div>
-
+            <div class="panel-footer">
+                <div class="form-group">
+                    <?= Html::a(Yii::t('art', 'Go to list'),  ['/menu/default/index',"{$formName}[menu_id]" => $model->menu_id], ['class' => 'btn btn-default']) ?>
+                    <?= Html::submitButton(Yii::t('art', 'Save'), ['class' => 'btn btn-primary']) ?>
+                    <?php if (!$model->isNewRecord): ?>
+                        <?= Html::a(Yii::t('art', 'Delete'),
+                            ['/menu/link/delete', 'id' => $model->id], [
+                                'class' => 'btn btn-danger',
+                                'data' => [
+                                    'confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
+                    <?php endif; ?>
+                </div>
+                <?= \artsoft\widgets\InfoModel::widget(['model' => $model]); ?>
+            </div>
         </div>
+
+        <?php ActiveForm::end(); ?>
+
     </div>
-
-    <?php ActiveForm::end(); ?>
-
-</div>
 <?php
 $js = <<<JS
 
